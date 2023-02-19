@@ -27,17 +27,16 @@ class ImagesListViewController: UIViewController {
     }
     
     
-    
     func configCell(for cell: ImagesListCell, with indextPath: IndexPath) {
         guard let image = UIImage(named: photosName[indextPath.row]) else {return}
+        
         cell.cellImage.image = image
         cell.cellDateLabel.text = dateFormatter.string(from: Date())
+        
         let isLiked = indextPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
         cell.cellLikeButton.setImage(likeImage, for: .normal)
     }
-
-
 }
 
 //MARK: - UITableViewDelegate
@@ -48,7 +47,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let image = UIImage(named: photosName[indexPath.row]) else { return 0}
+        guard let image = UIImage(named: photosName[indexPath.row]) else { return 0 }
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
         let imageWidth = image.size.width
@@ -58,7 +57,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
 }
 
-//MARK: -
+//MARK: - UITableViewDataSource
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,5 +76,4 @@ extension ImagesListViewController: UITableViewDataSource {
         return imageListCell
     }
 
- 
 }

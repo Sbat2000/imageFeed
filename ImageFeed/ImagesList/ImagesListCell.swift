@@ -8,11 +8,13 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var cellDateLabel: UILabel!
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         cellImage.layer.sublayers = nil
         setupGradient()
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         cellImage.layer.sublayers = nil
     }
     

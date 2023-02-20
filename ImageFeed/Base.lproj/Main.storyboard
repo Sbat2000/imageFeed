@@ -38,11 +38,15 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSp-We-AVC" userLabel="Date Label">
-                                                    <rect key="frame" x="23.999999999999993" y="191" width="102.33333333333331" height="16"/>
+                                                    <rect key="frame" x="23.999999999999993" y="191.33333333333334" width="102.33333333333331" height="15.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" name="YP White"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrY-Kn-z09" userLabel="gradientView">
+                                                    <rect key="frame" x="16" y="187.33333333333334" width="361" height="27.666666666666657"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gy0-UZ-jZh" userLabel="Like Button">
                                                     <rect key="frame" x="335" y="4" width="42" height="42"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -52,13 +56,17 @@
                                             <color key="backgroundColor" name="YP Black"/>
                                             <constraints>
                                                 <constraint firstItem="o5C-zo-s4p" firstAttribute="leading" secondItem="uNC-xO-QLa" secondAttribute="leading" constant="16" id="1WU-dS-V2v"/>
+                                                <constraint firstItem="NSp-We-AVC" firstAttribute="top" secondItem="XrY-Kn-z09" secondAttribute="top" constant="4" id="1p2-ml-5iW"/>
+                                                <constraint firstItem="XrY-Kn-z09" firstAttribute="leading" secondItem="o5C-zo-s4p" secondAttribute="leading" id="5Wl-K5-rXa"/>
                                                 <constraint firstItem="o5C-zo-s4p" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NSp-We-AVC" secondAttribute="trailing" constant="8" id="GKv-Nf-7bm"/>
                                                 <constraint firstItem="o5C-zo-s4p" firstAttribute="trailing" secondItem="Gy0-UZ-jZh" secondAttribute="trailing" id="KeA-is-eZk"/>
                                                 <constraint firstItem="o5C-zo-s4p" firstAttribute="bottom" secondItem="NSp-We-AVC" secondAttribute="bottom" constant="8" id="KzB-SS-Lqc"/>
+                                                <constraint firstItem="XrY-Kn-z09" firstAttribute="bottom" secondItem="o5C-zo-s4p" secondAttribute="bottom" id="ZVT-Ne-Dzh"/>
                                                 <constraint firstItem="Gy0-UZ-jZh" firstAttribute="top" secondItem="o5C-zo-s4p" secondAttribute="top" id="feK-iD-3Wj"/>
                                                 <constraint firstAttribute="trailing" secondItem="o5C-zo-s4p" secondAttribute="trailing" constant="16" id="iLI-jM-cUM"/>
                                                 <constraint firstItem="NSp-We-AVC" firstAttribute="leading" secondItem="o5C-zo-s4p" secondAttribute="leading" constant="8" id="qH5-PK-nUs"/>
                                                 <constraint firstItem="o5C-zo-s4p" firstAttribute="top" secondItem="uNC-xO-QLa" secondAttribute="top" constant="4" id="uLF-mO-XnA"/>
+                                                <constraint firstItem="XrY-Kn-z09" firstAttribute="trailing" secondItem="o5C-zo-s4p" secondAttribute="trailing" id="ucJ-Vh-skb"/>
                                                 <constraint firstAttribute="bottom" secondItem="o5C-zo-s4p" secondAttribute="bottom" constant="4" id="whl-Wy-LS8"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -66,6 +74,7 @@
                                             <outlet property="cellDateLabel" destination="NSp-We-AVC" id="dlk-qV-Pmu"/>
                                             <outlet property="cellImage" destination="o5C-zo-s4p" id="SbC-9e-518"/>
                                             <outlet property="cellLikeButton" destination="Gy0-UZ-jZh" id="l69-Bm-wFD"/>
+                                            <outlet property="gradientView" destination="XrY-Kn-z09" id="gMp-06-Syz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

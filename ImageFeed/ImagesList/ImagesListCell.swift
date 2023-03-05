@@ -13,16 +13,16 @@ final class ImagesListCell: UITableViewCell {
         gradientView.layer.sublayers = nil
         setupGradient()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         gradientView.layer.sublayers = nil
     }
-    
+
     func setupGradient() {
         let colorTop = UIColor(red: 0.1, green: 0.11, blue: 0.13, alpha: 0.0).cgColor
         let colorBot = UIColor(red: 0.1, green: 0.11, blue: 0.13, alpha: 1.0).cgColor
-        
+
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = gradientView.bounds
         gradientLayer.cornerRadius = cellImage.layer.cornerRadius
@@ -31,5 +31,5 @@ final class ImagesListCell: UITableViewCell {
         gradientLayer.locations = [0, 1]
         gradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
+
 }

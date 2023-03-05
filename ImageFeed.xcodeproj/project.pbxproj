@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E259A06629B22F0F00F4C649 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E259A06529B22F0F00F4C649 /* ProfileViewController.swift */; };
+		E259A06829B4817E00F4C649 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E259A06729B4817E00F4C649 /* SingleImageViewController.swift */; };
 		E27FCA1F29A3A04E0001C526 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */; };
 		E27FCA2029A3A04E0001C526 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */; };
 		E29B08FE299FC8000099212A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B08FD299FC8000099212A /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		E259A06529B22F0F00F4C649 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E259A06729B4817E00F4C649 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		E29B08FA299FC8000099212A /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +49,7 @@
 				E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */,
 				E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */,
 				E259A06529B22F0F00F4C649 /* ProfileViewController.swift */,
+				E259A06729B4817E00F4C649 /* SingleImageViewController.swift */,
 			);
 			path = ImagesList;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				E27FCA2029A3A04E0001C526 /* ImagesListCell.swift in Sources */,
 				E259A06629B22F0F00F4C649 /* ProfileViewController.swift in Sources */,
 				E27FCA1F29A3A04E0001C526 /* ImagesListViewController.swift in Sources */,
+				E259A06829B4817E00F4C649 /* SingleImageViewController.swift in Sources */,
 				E29B0900299FC8000099212A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

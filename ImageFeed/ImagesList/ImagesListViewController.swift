@@ -12,6 +12,7 @@ final class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
+    private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -26,14 +27,25 @@ final class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == ShowSingleImageSegueIdentifier {
+            let viewController = segue.destination as! SingleImageViewController
+            let indexPath = sender as! IndexPath
+            let image = UIImage(named: photosName[indexPath.row])
+            viewController.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
     
-    func configCell(for cell: ImagesListCell, with indextPath: IndexPath) {
-        guard let image = UIImage(named: photosName[indextPath.row]) else {return}
+    
+    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        guard let image = UIImage(named: photosName[indexPath.row]) else {return}
         
         cell.cellImage.image = image
         cell.cellDateLabel.text = dateFormatter.string(from: Date())
         
-        let isLiked = indextPath.row % 2 == 0
+        let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
         cell.cellLikeButton.setImage(likeImage, for: .normal)
     }
@@ -43,6 +55,8 @@ final class ImagesListViewController: UIViewController {
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: ShowSingleImageSegueIdentifier, sender: indexPath)
         
     }
     
@@ -55,6 +69,8 @@ extension ImagesListViewController: UITableViewDelegate {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
+    
+
 }
 
 //MARK: - UITableViewDataSource

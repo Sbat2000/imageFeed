@@ -236,11 +236,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="keY-0U-Avd"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="tintColor" name="YP Black"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Войти">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Войти">
+                                    <color key="titleColor" name="YP Black"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="16"/>
@@ -296,12 +297,19 @@
                                     <action selector="didTapBackButton:" destination="4tD-ch-fVG" eventType="touchUpInside" id="nCq-59-umr"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XKW-N5-6dN">
+                                <rect key="frame" x="0.0" y="82" width="414" height="4"/>
+                                <color key="progressTintColor" name="YP Black"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="THz-IF-vkp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="leading" secondItem="k3z-oi-tZC" secondAttribute="leading" id="3r3-wG-2nr"/>
                             <constraint firstAttribute="top" secondItem="k3z-oi-tZC" secondAttribute="top" id="5UQ-vD-aXq"/>
+                            <constraint firstItem="XKW-N5-6dN" firstAttribute="leading" secondItem="THz-IF-vkp" secondAttribute="leading" id="CrU-Oq-o71"/>
+                            <constraint firstItem="THz-IF-vkp" firstAttribute="trailing" secondItem="XKW-N5-6dN" secondAttribute="trailing" id="G7C-wb-9Zq"/>
+                            <constraint firstItem="XKW-N5-6dN" firstAttribute="top" secondItem="Jx9-1n-ZMm" secondAttribute="bottom" constant="3" id="ahy-VM-Q97"/>
                             <constraint firstAttribute="bottom" secondItem="k3z-oi-tZC" secondAttribute="bottom" id="c5Z-Dc-tDR"/>
                             <constraint firstItem="Jx9-1n-ZMm" firstAttribute="leading" secondItem="THz-IF-vkp" secondAttribute="leading" constant="9" id="fSv-kL-Thq"/>
                             <constraint firstItem="Jx9-1n-ZMm" firstAttribute="top" secondItem="THz-IF-vkp" secondAttribute="top" constant="7" id="jZC-c4-FSk"/>
@@ -309,6 +317,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="XKW-N5-6dN" id="mBE-lZ-rnV"/>
                         <outlet property="webView" destination="k3z-oi-tZC" id="Ksu-z5-6Ca"/>
                     </connections>
                 </viewController>

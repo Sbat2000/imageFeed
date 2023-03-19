@@ -22,6 +22,11 @@
 		E2DBF71529C5F5C100E3CCAA /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71429C5F5C100E3CCAA /* WebViewViewController.swift */; };
 		E2DBF71729C5F6D200E3CCAA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71629C5F6D200E3CCAA /* AuthViewController.swift */; };
 		E2DBF71929C606B900E3CCAA /* WebViewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71829C606B900E3CCAA /* WebViewViewControllerDelegate.swift */; };
+		E2DBF71B29C6E18200E3CCAA /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71A29C6E18200E3CCAA /* OAuthTokenResponseBody.swift */; };
+		E2DBF71D29C6E25200E3CCAA /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71C29C6E25200E3CCAA /* OAuth2Service.swift */; };
+		E2DBF71F29C6E51100E3CCAA /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF71E29C6E51100E3CCAA /* OAuth2TokenStorage.swift */; };
+		E2DBF72129C6F8AA00E3CCAA /* URLRequest + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF72029C6F8AA00E3CCAA /* URLRequest + ext.swift */; };
+		E2DBF72329C7031900E3CCAA /* URLSession + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DBF72229C7031900E3CCAA /* URLSession + Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +47,11 @@
 		E2DBF71429C5F5C100E3CCAA /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		E2DBF71629C5F6D200E3CCAA /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E2DBF71829C606B900E3CCAA /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
+		E2DBF71A29C6E18200E3CCAA /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
+		E2DBF71C29C6E25200E3CCAA /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
+		E2DBF71E29C6E51100E3CCAA /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
+		E2DBF72029C6F8AA00E3CCAA /* URLRequest + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest + ext.swift"; sourceTree = "<group>"; };
+		E2DBF72229C7031900E3CCAA /* URLSession + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession + Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				E2938F9429BDA75D00E05696 /* UIColor + ext.swift */,
+				E2DBF72029C6F8AA00E3CCAA /* URLRequest + ext.swift */,
+				E2DBF72229C7031900E3CCAA /* URLSession + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -138,6 +150,9 @@
 				E2DBF71429C5F5C100E3CCAA /* WebViewViewController.swift */,
 				E2DBF71629C5F6D200E3CCAA /* AuthViewController.swift */,
 				E2DBF71829C606B900E3CCAA /* WebViewViewControllerDelegate.swift */,
+				E2DBF71A29C6E18200E3CCAA /* OAuthTokenResponseBody.swift */,
+				E2DBF71C29C6E25200E3CCAA /* OAuth2Service.swift */,
+				E2DBF71E29C6E51100E3CCAA /* OAuth2TokenStorage.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -218,11 +233,16 @@
 				E29B08FE299FC8000099212A /* AppDelegate.swift in Sources */,
 				E27FCA2029A3A04E0001C526 /* ImagesListCell.swift in Sources */,
 				E2938F9229BDA60400E05696 /* Resources.swift in Sources */,
+				E2DBF71B29C6E18200E3CCAA /* OAuthTokenResponseBody.swift in Sources */,
+				E2DBF71D29C6E25200E3CCAA /* OAuth2Service.swift in Sources */,
+				E2DBF72129C6F8AA00E3CCAA /* URLRequest + ext.swift in Sources */,
 				E259A06629B22F0F00F4C649 /* ProfileViewController.swift in Sources */,
 				E27FCA1F29A3A04E0001C526 /* ImagesListViewController.swift in Sources */,
 				E259A06829B4817E00F4C649 /* SingleImageViewController.swift in Sources */,
 				E29B0900299FC8000099212A /* SceneDelegate.swift in Sources */,
+				E2DBF72329C7031900E3CCAA /* URLSession + Ext.swift in Sources */,
 				E2DBF71929C606B900E3CCAA /* WebViewViewControllerDelegate.swift in Sources */,
+				E2DBF71F29C6E51100E3CCAA /* OAuth2TokenStorage.swift in Sources */,
 				E2938F9529BDA75D00E05696 /* UIColor + ext.swift in Sources */,
 				E2DBF71229C4B5D900E3CCAA /* Constants.swift in Sources */,
 			);

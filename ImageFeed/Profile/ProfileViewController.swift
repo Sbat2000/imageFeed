@@ -90,7 +90,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func didTapLogoutButton() {
-        print("button tapped")
+        OAuth2TokenStorage().deleteToken()
     }
     
 }

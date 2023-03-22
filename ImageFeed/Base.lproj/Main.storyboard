@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qwf-UJ-IVK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6II-Qp-b7b">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -177,10 +177,37 @@
             </objects>
             <point key="canvasLocation" x="853.62318840579712" y="-35.491071428571423"/>
         </scene>
+        <!--Splash View Controller-->
+        <scene sceneID="bIE-RU-nt7">
+            <objects>
+                <viewController id="6II-Qp-b7b" userLabel="Splash View Controller" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wKh-v6-dU7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash logo" translatesAutoresizingMaskIntoConstraints="NO" id="fAY-Qh-zjc">
+                                <rect key="frame" x="169.5" y="409" width="75" height="78"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pWw-x5-om9"/>
+                        <color key="backgroundColor" name="YP Black"/>
+                        <constraints>
+                            <constraint firstItem="fAY-Qh-zjc" firstAttribute="centerX" secondItem="wKh-v6-dU7" secondAttribute="centerX" id="BtN-54-8oM"/>
+                            <constraint firstItem="fAY-Qh-zjc" firstAttribute="centerY" secondItem="wKh-v6-dU7" secondAttribute="centerY" id="NuC-VZ-ENc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="Qwf-UJ-IVK" kind="presentation" identifier="ShowAuthenticationScreenSegueIdentifier" modalPresentationStyle="overFullScreen" id="t7H-w7-lJc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l0h-gs-KFR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2152.1739130434785" y="-377.00892857142856"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4w3-Qx-5sm">
             <objects>
-                <tabBarController id="sOP-dR-s7f" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="sOP-dR-s7f" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nbE-8h-WXG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -352,6 +379,7 @@
         <image name="Tab Bar Profile Active Icon" width="30" height="30"/>
         <image name="homeButton" width="24" height="24"/>
         <image name="nav_back_button" width="24" height="24"/>
+        <image name="splash logo" width="75" height="78"/>
         <image name="unsplash logo" width="60" height="60"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

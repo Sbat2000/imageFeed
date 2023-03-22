@@ -22,6 +22,7 @@ final class OAuth2Service {
         }
     }
     
+    
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void ) {
         
         let request = authTokenRequest(code: code)
@@ -32,10 +33,9 @@ final class OAuth2Service {
                 let authToken = body.accessToken
                 self.authToken = authToken
                 completion(.success(authToken))
-                print(Thread.current)
+                
             case .failure(let error):
                 completion(.failure(error))
-                print("error")
             }
         }
         task.resume()

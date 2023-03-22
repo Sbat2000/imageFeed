@@ -19,4 +19,8 @@ final class OAuth2TokenStorage {
             UserDefaults.standard.set(newValue, forKey: tokenKey)
         }
     }
+    
+    func deleteToken() {
+        UserDefaults.standard.removeObject(forKey: tokenKey)
+    }
 }

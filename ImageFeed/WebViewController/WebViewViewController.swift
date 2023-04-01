@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+
 
 
 final class WebViewViewController: UIViewController {
@@ -16,6 +16,7 @@ final class WebViewViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
     
+    private let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     var delegate: WebViewViewControllerDelegate?
     
     override func viewDidLoad() {
@@ -25,10 +26,10 @@ final class WebViewViewController: UIViewController {
         
         var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-           URLQueryItem(name: "client_id", value: AccessKey),
-           URLQueryItem(name: "redirect_uri", value: RedirectURI),
+           URLQueryItem(name: "client_id", value: accessKey),
+           URLQueryItem(name: "redirect_uri", value: redirectURI),
            URLQueryItem(name: "response_type", value: "code"),
-           URLQueryItem(name: "scope", value: AccessScope)
+           URLQueryItem(name: "scope", value: accessScope)
          ]
          let url = urlComponents.url!
         
@@ -75,8 +76,6 @@ final class WebViewViewController: UIViewController {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
-
-    
 }
 
 extension WebViewViewController: WKNavigationDelegate {

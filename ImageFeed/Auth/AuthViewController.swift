@@ -9,7 +9,7 @@ import UIKit
 
 final class AuthViewController: UIViewController {
     
-    let showWebViewSegueIdentifier = "ShowWebView"
+    private let showWebViewSegueIdentifier = "ShowWebView"
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -19,7 +19,6 @@ final class AuthViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let token = UserDefaults.standard.string(forKey: "auth2_token")
         if segue.identifier == showWebViewSegueIdentifier {
             if let viewController = segue.destination as? WebViewViewController {
                 webViewViewController = viewController

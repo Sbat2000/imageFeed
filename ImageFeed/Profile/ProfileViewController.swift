@@ -9,6 +9,9 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    let profileService = ProfileService()
+    let authToken = OAuth2TokenStorage().token ?? "nil"
+    
     private lazy var avatarImage: UIImageView = {
         let image = UIImageView()
         image.image = Resources.Images.Profile.defaultAvatar
@@ -45,7 +48,7 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     
-    private lazy var textLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello, world!"
         label.textColor = Resources.Colors.ypWhite
@@ -58,14 +61,24 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
         layout()
+        profileService.fetchProfile(authToken) { result in
+            switch result {
+            case .success(let profile):
+                self.setupProfile(profile)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
     }
     
     
     
     func setupUI() {
-        [avatarImage, logoutButton, nameLabel, loginLabel, textLabel].forEach {view.addSubview($0)}
+        [avatarImage, logoutButton, nameLabel, loginLabel, descriptionLabel].forEach {view.addSubview($0)}
     }
     
     func layout() {
@@ -84,13 +97,19 @@ final class ProfileViewController: UIViewController {
             loginLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
             loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             
-            textLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
-            textLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: avatarImage.leadingAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8),
         ])
     }
     
     @objc private func didTapLogoutButton() {
         OAuth2TokenStorage().deleteToken()
+    }
+    
+    func setupProfile(_ profile: Profile) -> Void {
+        nameLabel.text = "\(profile.firstName) \(profile.lastName)"
+        loginLabel.text = "@\(profile.username)"
+        descriptionLabel.text = "\(profile.bio ?? "")"
     }
     
 }

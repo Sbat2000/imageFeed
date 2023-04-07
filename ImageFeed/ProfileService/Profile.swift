@@ -1,0 +1,20 @@
+//
+//  ProfileServiceReponcseBody.swift
+//  ImageFeed
+//
+//  Created by Aleksandr Garipov on 07.04.2023.
+//
+
+import Foundation
+
+struct Profile: Decodable {
+    let username, firstName, lastName: String
+    let bio: String?
+
+    enum CodingKeys: String, CodingKey {
+        case username
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case bio
+    }
+}

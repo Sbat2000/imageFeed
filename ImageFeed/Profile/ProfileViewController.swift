@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    let profileService = ProfileService()
+    let profileService = ProfileService.shared
     let authToken = OAuth2TokenStorage().token ?? "nil"
     
     private lazy var avatarImage: UIImageView = {
@@ -64,14 +64,15 @@ final class ProfileViewController: UIViewController {
         
         setupUI()
         layout()
-        profileService.fetchProfile(authToken) { result in
-            switch result {
-            case .success(let profile):
-                self.setupProfile(profile)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        setupProfile()
+//        profileService.fetchProfile(authToken) { result in
+//            switch result {
+//            case .success(let profile):
+//                self.setupProfile(profile)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
         
     }
     
@@ -106,11 +107,15 @@ final class ProfileViewController: UIViewController {
         OAuth2TokenStorage().deleteToken()
     }
     
-    func setupProfile(_ profile: Profile) -> Void {
-        nameLabel.text = "\(profile.firstName) \(profile.lastName)"
-        loginLabel.text = "@\(profile.username)"
-        descriptionLabel.text = "\(profile.bio ?? "")"
+    func setupProfile() -> Void {
+        if let firstNameText = profileService.profile?.firstName,
+           let lastNameText = profileService.profile?.lastName,
+           let loginLabelText = profileService.profile?.username {
+            nameLabel.text = ("\(firstNameText) \(lastNameText)")
+            loginLabel.text = loginLabelText
+        }
+        descriptionLabel.text = "\(profileService.profile?.bio ?? "")"
+
     }
-    
 }
 

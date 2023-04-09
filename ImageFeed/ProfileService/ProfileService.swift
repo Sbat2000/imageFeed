@@ -21,15 +21,7 @@ final class ProfileService {
             switch result  {
             case .success(let profile):
                 self.profile = profile
-                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in
-//                    switch result {
-//                    case .success:
-//                        break
-//                    case .failure(let error):
-//                        print(error)
-//                        break
-//                    }
-                }
+                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in  }
                 completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))

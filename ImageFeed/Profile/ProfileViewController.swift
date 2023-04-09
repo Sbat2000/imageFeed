@@ -8,9 +8,10 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    
+
     let profileService = ProfileService.shared
     let authToken = OAuth2TokenStorage().token ?? "nil"
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     private lazy var avatarImage: UIImageView = {
         let image = UIImageView()
@@ -65,14 +66,17 @@ final class ProfileViewController: UIViewController {
         setupUI()
         layout()
         setupProfile()
-//        profileService.fetchProfile(authToken) { result in
-//            switch result {
-//            case .success(let profile):
-//                self.setupProfile(profile)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+        
         
     }
     
@@ -115,7 +119,14 @@ final class ProfileViewController: UIViewController {
             loginLabel.text = loginLabelText
         }
         descriptionLabel.text = "\(profileService.profile?.bio ?? "")"
-
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageUrl = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageUrl)
+        else { return }
+        print("A VOT I URL: \(url)")
     }
 }
 

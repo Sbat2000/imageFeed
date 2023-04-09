@@ -8,7 +8,9 @@
 import Foundation
 
 final class ProfileImageService{
+    
     static let shared = ProfileImageService()
+    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     private (set) var avatarURL: String?
     private let oAuthToken = OAuth2TokenStorage().token
     private let urlSession = URLSession.shared
@@ -22,6 +24,10 @@ final class ProfileImageService{
                 self.avatarURL = userResult.profileImage.small
                 print("AVATAR URL: \(self.avatarURL ?? "NETU!")")
                 completion(.success(userResult.profileImage.small))
+                NotificationCenter.default.post(
+                    name: ProfileImageService.DidChangeNotification,
+                    object: self,
+                    userInfo: ["URL": self.avatarURL!])
             case .failure(let error):
                 completion(.failure(error))
             }

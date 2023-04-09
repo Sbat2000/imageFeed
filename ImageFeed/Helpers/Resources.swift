@@ -12,7 +12,7 @@ enum Resources {
     enum Images {
         
         enum Profile {
-            static let defaultAvatar        = UIImage(named: "profileAvatar")
+            static let defaultAvatar        = UIImage(named: "PlaceHolderAvatar")
             static let logoutButtonImage    = UIImage(named: "logoutImage")
         }
     }

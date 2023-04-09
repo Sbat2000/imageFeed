@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
 
@@ -126,6 +127,10 @@ final class ProfileViewController: UIViewController {
             let profileImageUrl = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageUrl)
         else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        avatarImage.kf.setImage(with: url,
+                                placeholder: Resources.Images.Profile.defaultAvatar,
+                                options: [.processor(processor)])
         print("A VOT I URL: \(url)")
     }
 }

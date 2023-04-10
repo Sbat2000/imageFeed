@@ -65,7 +65,6 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         layout()
         setupProfile()
@@ -86,6 +85,7 @@ final class ProfileViewController: UIViewController {
     
     
     func setupUI() {
+        view.backgroundColor = Resources.Colors.ypBlack
         [avatarImage, logoutButton, nameLabel, loginLabel, descriptionLabel].forEach {view.addSubview($0)}
     }
     
@@ -121,7 +121,7 @@ final class ProfileViewController: UIViewController {
            let lastNameText = profileService.profile?.lastName,
            let loginLabelText = profileService.profile?.username {
             nameLabel.text = ("\(firstNameText) \(lastNameText)")
-            loginLabel.text = loginLabelText
+            loginLabel.text = ("@\(loginLabelText)")
         }
         descriptionLabel.text = "\(profileService.profile?.bio ?? "")"
     }
@@ -134,7 +134,6 @@ final class ProfileViewController: UIViewController {
         avatarImage.kf.setImage(with: url,
                                 placeholder: Resources.Images.Profile.defaultAvatar,
                                 options: [])
-        print("A VOT I URL: \(url)")
     }
 }
 

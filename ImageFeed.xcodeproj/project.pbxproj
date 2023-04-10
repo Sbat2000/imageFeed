@@ -17,6 +17,7 @@
 		E27FB58229E1649A0011FC55 /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FB58129E1649A0011FC55 /* UserResult.swift */; };
 		E27FB58529E2DC6B0011FC55 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E27FB58429E2DC6B0011FC55 /* Kingfisher */; };
 		E27FB58829E41AAC0011FC55 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = E27FB58729E41AAC0011FC55 /* SwiftKeychainWrapper */; };
+		E27FB58A29E427AB0011FC55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FB58929E427AB0011FC55 /* TabBarController.swift */; };
 		E27FCA1F29A3A04E0001C526 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */; };
 		E27FCA2029A3A04E0001C526 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */; };
 		E2938F9229BDA60400E05696 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2938F9129BDA60400E05696 /* Resources.swift */; };
@@ -47,6 +48,7 @@
 		E27FB57C29E033C40011FC55 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E27FB57F29E164660011FC55 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		E27FB58129E1649A0011FC55 /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
+		E27FB58929E427AB0011FC55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		E2938F9129BDA60400E05696 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 				E27FB58129E1649A0011FC55 /* UserResult.swift */,
 			);
 			path = ProfileImageService;
+			sourceTree = "<group>";
+		};
+		E27FB58B29E427FB0011FC55 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				E27FB58929E427AB0011FC55 /* TabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		E27FCA1C29A3A04E0001C526 /* ImagesList */ = {
@@ -168,6 +178,7 @@
 		E29B08FC299FC8000099212A /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				E27FB58B29E427FB0011FC55 /* TabBarController */,
 				E27FB57E29E164490011FC55 /* ProfileImageService */,
 				E27FB57929E0331D0011FC55 /* ProfileService */,
 				E2DBF7A029CB587C00E3CCAA /* WebViewController */,
@@ -315,6 +326,7 @@
 				E29B0900299FC8000099212A /* SceneDelegate.swift in Sources */,
 				E2DBF72329C7031900E3CCAA /* URLSession + Ext.swift in Sources */,
 				E27FB58229E1649A0011FC55 /* UserResult.swift in Sources */,
+				E27FB58A29E427AB0011FC55 /* TabBarController.swift in Sources */,
 				E2DBF71929C606B900E3CCAA /* WebViewViewControllerDelegate.swift in Sources */,
 				E2DBF71F29C6E51100E3CCAA /* OAuth2TokenStorage.swift in Sources */,
 				E2DBF79E29CB426C00E3CCAA /* AuthViewControllerDelegate.swift in Sources */,

@@ -11,6 +11,9 @@ enum Resources {
     
     enum Images {
         
+        static let splashLogoImage          = UIImage(named:
+            "splash_logo")
+        
         enum Profile {
             static let defaultAvatar        = UIImage(named: "PlaceHolderAvatar")
             static let logoutButtonImage    = UIImage(named: "logoutImage")

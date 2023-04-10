@@ -29,7 +29,6 @@ final class ProfileImageService{
             switch result {
             case .success(let userResult):
                 self.avatarURL = userResult.profileImage.small
-                print("AVATAR URL: \(self.avatarURL ?? "NETU!")")
                 completion(.success(userResult.profileImage.small))
                 self.task = nil
                 NotificationCenter.default.post(

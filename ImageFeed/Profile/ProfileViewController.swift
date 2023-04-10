@@ -18,6 +18,8 @@ final class ProfileViewController: UIViewController {
         let image = UIImageView()
         image.image = Resources.Images.Profile.defaultAvatar
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 35
+        image.layer.masksToBounds = true
         return image
     }()
     
@@ -94,6 +96,8 @@ final class ProfileViewController: UIViewController {
             avatarImage.heightAnchor.constraint(equalToConstant: 70),
             avatarImage.widthAnchor.constraint(equalToConstant: 70),
             
+            
+            
             logoutButton.centerYAnchor.constraint(equalTo: avatarImage.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
             
@@ -127,10 +131,9 @@ final class ProfileViewController: UIViewController {
             let profileImageUrl = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageUrl)
         else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImage.kf.setImage(with: url,
                                 placeholder: Resources.Images.Profile.defaultAvatar,
-                                options: [.processor(processor)])
+                                options: [])
         print("A VOT I URL: \(url)")
     }
 }

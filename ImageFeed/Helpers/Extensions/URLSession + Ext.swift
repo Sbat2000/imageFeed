@@ -23,9 +23,11 @@ extension URLSession {
                 }
             }
             let task = dataTask(with: request, completionHandler: {data, response, error in
-                if let data = data,
-                   let response = response,
-                   let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                if let error  = error {
+                    fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
+                } else if let data = data,
+                          let response = response,
+                          let statusCode = (response as? HTTPURLResponse)?.statusCode {
                     if 200..<300 ~= statusCode {
                         do {
                             let decoder = JSONDecoder()
@@ -34,11 +36,11 @@ extension URLSession {
                         } catch {
                             fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
                         }
-                    } else if let error = error {
-                        fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
                     } else {
-                        fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
+                        fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
                     }
+                } else {
+                    fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))   
                 }
             })
             return task

@@ -24,7 +24,6 @@ final class OAuth2Service {
         }
     }
     
-    
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void ) {
         assert(Thread.isMainThread)
         if lastCode == code { return }
@@ -49,9 +48,6 @@ final class OAuth2Service {
         task.resume()
     }
 }
-
-
-
 
 extension OAuth2Service {
     private func authTokenRequest(code: String) -> URLRequest {

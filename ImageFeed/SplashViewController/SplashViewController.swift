@@ -15,7 +15,6 @@ final class SplashViewController: UIViewController {
     private let oAuth2Service = OAuth2Service()
     private let profileService = ProfileService.shared
     private var isFirstAppear = true
-
     
     private lazy var logoImageView: UIImageView = {
         let logoImage = UIImageView()
@@ -62,7 +61,6 @@ final class SplashViewController: UIViewController {
             logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
 }
 
 extension SplashViewController: AuthViewControllerDelegate {
@@ -110,7 +108,5 @@ extension SplashViewController: AuthViewControllerDelegate {
         }
         alert.addAction(okAction)
         present(alert, animated: true)
-    }
-    
-    
+    }   
 }

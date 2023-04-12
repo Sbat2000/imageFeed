@@ -60,9 +60,7 @@ final class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -78,11 +76,7 @@ final class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         updateAvatar()
-        
-        
     }
-    
-    
     
     func setupUI() {
         view.backgroundColor = Resources.Colors.ypBlack
@@ -95,9 +89,7 @@ final class ProfileViewController: UIViewController {
             avatarImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             avatarImage.heightAnchor.constraint(equalToConstant: 70),
             avatarImage.widthAnchor.constraint(equalToConstant: 70),
-            
-            
-            
+
             logoutButton.centerYAnchor.constraint(equalTo: avatarImage.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
             

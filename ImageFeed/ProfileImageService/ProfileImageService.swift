@@ -38,12 +38,10 @@ final class ProfileImageService{
             case .failure(let eror):
                 completion(.failure(eror))
                 self.lastToken = nil
-                
             }
         }
         self.task = task
-        task.resume()
-        
+        task.resume() 
     }
 }
 

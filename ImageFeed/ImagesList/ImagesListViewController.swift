@@ -49,6 +49,13 @@ final class ImagesListViewController: UIViewController {
         let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
         cell.cellLikeButton.setImage(likeImage, for: .normal)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if indexPath.row + 1 == photos.count {
+//            
+//        }
+        
+    }
 }
 
 //MARK: - UITableViewDelegate

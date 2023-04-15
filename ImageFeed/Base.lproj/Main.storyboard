@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -133,7 +133,7 @@
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0N-q7-YRY">
-                                <rect key="frame" x="9" y="57" width="48" height="48"/>
+                                <rect key="frame" x="9" y="9" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="EaU-YQ-th3"/>
                                     <constraint firstAttribute="width" constant="48" id="hXZ-Yd-mi7"/>
@@ -146,7 +146,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAN-5S-fwB" userLabel="Shared Button">
-                                <rect key="frame" x="182" y="795" width="50" height="50"/>
+                                <rect key="frame" x="182" y="829" width="50" height="50"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing button icon"/>
                                 <connections>
@@ -198,7 +198,6 @@
         <!--Auth View Controller-->
         <scene sceneID="SLy-OC-OhQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UMe-bY-xco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="AuthController" id="dzP-iZ-rGg" userLabel="Auth View Controller" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w7s-ZL-JjJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -246,6 +245,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="HzW-Yx-sYu"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMe-bY-xco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="44.927536231884062" y="-813.61607142857144"/>
         </scene>
@@ -266,7 +266,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jx9-1n-ZMm">
-                                <rect key="frame" x="9" y="55" width="24" height="24"/>
+                                <rect key="frame" x="9" y="7" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="8P6-nG-hSU"/>
                                     <constraint firstAttribute="width" constant="24" id="ggA-po-iFo"/>
@@ -278,7 +278,7 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XKW-N5-6dN">
-                                <rect key="frame" x="0.0" y="82" width="414" height="4"/>
+                                <rect key="frame" x="0.0" y="34" width="414" height="4"/>
                                 <color key="progressTintColor" name="YP Black"/>
                             </progressView>
                         </subviews>
@@ -304,24 +304,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gkD-KE-upq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="934.78260869565224" y="-814.28571428571422"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="wEO-yK-Poy">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VL2-iY-kcD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qwf-UJ-IVK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b8H-vs-AaJ">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dzP-iZ-rGg" kind="relationship" relationship="rootViewController" id="2oF-Ov-lsy"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-865.21739130434787" y="-813.61607142857144"/>
         </scene>
     </scenes>
     <resources>

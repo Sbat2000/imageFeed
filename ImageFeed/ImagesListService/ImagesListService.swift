@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 final class ImagesListService {
     
     private let urlSession = URLSession.shared
@@ -65,7 +64,7 @@ final class ImagesListService {
     }
 }
 
-//MARK: NetworkService
+//MARK: HTTPRequest service
 extension ImagesListService {
     
     private func makePhotosRequest(with pageNumber: Int) -> URLRequest {

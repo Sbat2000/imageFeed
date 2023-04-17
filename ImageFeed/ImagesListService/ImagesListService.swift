@@ -46,7 +46,6 @@ final class ImagesListService {
                                       thumbImageURL: thumbImageURL,
                                       largeImageURL: largeImageURL,
                                       isLiked: photo.likedByUser)
-                    print(photo.id)
                     self.photos.append(photo)
                 }
                 NotificationCenter.default.post(
@@ -54,7 +53,7 @@ final class ImagesListService {
                     object: self,
                     userInfo: ["Photos": self.photos])
                 self.task = nil
-                print(self.photos.count)
+                lastLoadedPage = nextPage
             case .failure(let error):
                 print("ERROR: \(error)")
             }

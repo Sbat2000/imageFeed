@@ -18,7 +18,7 @@ final class ImagesListService {
     static let shared = ImagesListService()
     
     private (set) var photos: [Photo] = []
-     
+    
     func fetchPhotosNextPage() {
         
         assert(Thread.isMainThread)
@@ -34,15 +34,14 @@ final class ImagesListService {
             switch result {
             case .success(let photosResult):
                 photosResult.forEach { photo in
-                    let date = DateFormatter().date(from: photo.createdAt)
                     guard let thumbImageURL = photo.urls?.thumb,
                           let largeImageURL = photo.urls?.full
-                    else {return}
-                    let photo = Photo(id: photo.createdAt,
+                    else { return }
+                    let photo = Photo(id: photo.id,
                                       size: CGSize(width: photo.width,
                                                    height: photo.height),
-                                      createdAt: date,
-                                      welcomeDescription: photo.description,
+                                      createdAt: photo.createdAt,
+                                      welcomeDescription: ("photo.description"),
                                       thumbImageURL: thumbImageURL,
                                       largeImageURL: largeImageURL,
                                       isLiked: photo.likedByUser)
@@ -54,6 +53,7 @@ final class ImagesListService {
                     userInfo: ["Photos": self.photos])
                 self.task = nil
                 lastLoadedPage = nextPage
+                print("Photo one ID: \(self.photos[0].id)")
             case .failure(let error):
                 print("ERROR: \(error)")
             }
@@ -74,3 +74,39 @@ extension ImagesListService {
         return request
     }
 }
+
+//MARK: Like service
+
+extension ImagesListService {
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        let method = isLike ? "POST" : "DELETE"
+        var request =  URLRequest.makeHTTPRequest(
+            path: ("/photos/\(photoId)/like"),
+            httpMethod: method)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = urlSession.objectTask(for: request) {[weak self] (result: Result<PhotosLikedRequest, Error>) in
+            guard let self = self else {return}
+            switch result {
+            case .success(let photoResponse):
+                if let index = self.photos.firstIndex(where: {$0.id == photoId}) {
+                    let photoLikeChange = photoResponse.photo
+                    let photo = self.photos[index]
+                    let newPhoto = Photo(id: photo.id,
+                                         size: photo.size,
+                                         createdAt: photo.createdAt,
+                                         welcomeDescription: photo.welcomeDescription,
+                                         thumbImageURL: photo.thumbImageURL,
+                                         largeImageURL: photo.largeImageURL,
+                                         isLiked: photoLikeChange.likedByUser)
+                    self.photos.withReplaced(itemAt: index, newValue: newPhoto)
+                    completion(.success(()))
+                }
+            case .failure(let error):
+                print("ERROR: \(error)")
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+}
+

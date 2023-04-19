@@ -25,6 +25,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("TOKEN: \(oAuth2Service.authToken)")
         if isFirstAppear {
             if oAuth2TokenStorage.token != nil {
                 fetchProfile(token: oAuth2TokenStorage.token!)

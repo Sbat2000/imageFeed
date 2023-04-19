@@ -11,6 +11,18 @@ import Kingfisher
 final class ImagesListViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet  var likeButton: UIButton!
+    
+    @IBAction func tap(_ sender: UIButton) {
+        imageListService.changeLike(photoId: ImagesListService.shared.photos[0].id, isLike: false) { _ in
+            }
+    }
+    
+    @IBAction func tap2(_ sender: UIButton) {
+        imageListService.changeLike(photoId: ImagesListService.shared.photos[0].id, isLike: true) { _ in
+            }
+    }
+    
     
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
@@ -53,17 +65,16 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-    
-    
+
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         //guard let image = UIImage(named: photosName[indexPath.row]) else {return}
         
         //cell.cellImage.image = image
         cell.cellDateLabel.text = dateFormatter.string(from: Date())
-        
-        let isLiked = indexPath.row % 2 == 0
-        let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
-        cell.cellLikeButton.setImage(likeImage, for: .normal)
+        //cell.delegate = self
+//        let isLiked = indexPath.row % 2 == 0
+//        let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
+//        cell.cellLikeButton.setImage(likeImage, for: .normal)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -118,6 +129,7 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        imageListCell.delegate = self
         let stringPhotoThumbURL = photos[indexPath.row].thumbImageURL
         if let photoThumbURL = URL(string: stringPhotoThumbURL) {
             imageListCell.cellImage.kf.setImage(with: photoThumbURL, placeholder: UIImage(named: "placeholder")) { _ in
@@ -148,4 +160,27 @@ extension ImagesListViewController {
             } completion: { _ in }
         }
     }
+}
+
+//MARK: - ImagesListCellDelegate
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        UIBlockingProgressHUD.show()
+        imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+            switch result {
+            case .success():
+                print("OK")
+                self.photos = self.imageListService.photos
+                cell.setIsLiked(self.photos[indexPath.row].isLiked)
+                UIBlockingProgressHUD.dismiss()
+            case .failure(let error):
+                UIBlockingProgressHUD.dismiss()
+                print(error)
+            }
+        }
+    }
+    
+    
 }

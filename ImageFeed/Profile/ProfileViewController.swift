@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
 
@@ -106,6 +107,12 @@ final class ProfileViewController: UIViewController {
     
     @objc private func didTapLogoutButton() {
         OAuth2TokenStorage().deleteToken()
+        clean()
+        
+        let splashVC = SplashViewController()
+        splashVC.isFirstAppear = true
+        splashVC.modalPresentationStyle = .fullScreen
+        self.present(splashVC, animated: true)
     }
     
     func setupProfile() -> Void {
@@ -129,3 +136,14 @@ final class ProfileViewController: UIViewController {
     }
 }
 
+//MARK: - delete Cookies
+extension ProfileViewController {
+    private func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) {}
+            }
+        }
+    }
+}

@@ -36,7 +36,7 @@ final class OAuth2Service {
             case .success(let body):
                 let authToken = body.accessToken
                 self.authToken = authToken
-                print("token: \(authToken)")
+                print("token v service: \(authToken)")
                 completion(.success(authToken))
                 self.task = nil
             case .failure(let error):

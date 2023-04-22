@@ -11,15 +11,16 @@ import Kingfisher
 final class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
-    //@IBOutlet  var likeButton: UIButton!
-    
+
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     private let imageListService = ImagesListService.shared
     private var photos: [Photo] = []
     private var imagesListServiceServiceObserver: NSObjectProtocol?
     
-    
+    deinit {
+        print("IMLVC DEINIT!")
+    }
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -40,10 +41,14 @@ final class ImagesListViewController: UIViewController {
             guard let self = self else { return }
             self.updateTableViewAnimated()
         }
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         imageListService.fetchPhotosNextPage()
         updateTableViewAnimated()
     }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowSingleImageSegueIdentifier {
             let viewController = segue.destination as! SingleImageViewController
@@ -52,17 +57,15 @@ final class ImagesListViewController: UIViewController {
             if let urlLargeImage = URL(string: stringLargeImageURL) {
                 viewController.urlImage = urlLargeImage
             }
-            
-            
-            //            let image = UIImage(named: photosName[indexPath.row])
-            //            viewController.image = image
         } else {
             super.prepare(for: segue, sender: sender)
         }
     }
     
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        cell.cellDateLabel.text = dateFormatter.string(from: Date())
+        if let date = photos[indexPath.row].createdAt {
+            cell.cellDateLabel.text = dateFormatter.string(from: date)
+        }
         cell.delegate = self
         let isLiked = photos[indexPath.row].isLiked
         let likeImage = isLiked ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
@@ -130,7 +133,6 @@ extension ImagesListViewController: UITableViewDataSource {
             }
         }
         configCell(for: imageListCell, with: indexPath)
-        
         return imageListCell
     }
     
@@ -142,6 +144,9 @@ extension ImagesListViewController {
     private func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = imageListService.photos.count
+        print("OLD: \(oldCount)")
+        print("NEW: \(newCount)")
+        print("STROK: \(tableView.numberOfRows(inSection: 0))")
         photos = imageListService.photos
         if oldCount != newCount {
             tableView.performBatchUpdates {

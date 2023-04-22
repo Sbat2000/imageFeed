@@ -79,8 +79,24 @@ extension SingleImageViewController {
                 self.imageView.image = imageResult.image
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure:
-                print("ne zagruzili")
+                showError()
             }
         }
+    }
+    
+    private func showError() {
+        let alert = UIAlertController(title: "Что-то пошло не так", message: "Попробовать ещё раз?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Отмена", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        let retryAction = UIAlertAction(title: "Повторить",
+                                        style: .default) {_ in
+            self.showImage(largeURL: self.urlImage!)
+            alert.dismiss(animated: true)
+            
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(retryAction)
+        present(alert, animated: true)
     }
 }

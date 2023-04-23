@@ -66,7 +66,6 @@ extension SingleImageViewController: UIScrollViewDelegate {
 
 extension SingleImageViewController {
     private func showImage(largeURL: URL) {
-        print(largeURL)
         guard isViewLoaded else {return}
         let imageView = UIImageView()
         UIBlockingProgressHUD.show()

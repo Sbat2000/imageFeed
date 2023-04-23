@@ -10,10 +10,11 @@ import Foundation
 final class ImagesListService {
     
     private let urlSession = URLSession.shared
+    private let token = OAuth2TokenStorage().token!
     private var lastLoadedPage: Int?
     private var task: URLSessionDataTask?
-    private let token = OAuth2TokenStorage().token!
-    
+    private var likeTask: URLSessionDataTask?
+
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     static let shared = ImagesListService()
     
@@ -53,9 +54,9 @@ final class ImagesListService {
                     userInfo: ["Photos": self.photos])
                 self.task = nil
                 lastLoadedPage = nextPage
-                print("Photo one ID: \(self.photos[0].id)")
             case .failure(let error):
                 print("ERROR: \(error)")
+                self.task = nil
             }
         }
         self.task = task
@@ -79,6 +80,8 @@ extension ImagesListService {
 
 extension ImagesListService {
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if likeTask != nil { return }
         let method = isLike ? "POST" : "DELETE"
         var request =  URLRequest.makeHTTPRequest(
             path: ("/photos/\(photoId)/like"),
@@ -99,14 +102,23 @@ extension ImagesListService {
                                          largeImageURL: photo.largeImageURL,
                                          isLiked: photoLikeChange.likedByUser)
                     self.photos.withReplaced(itemAt: index, newValue: newPhoto)
+                    self.likeTask = nil
                     completion(.success(()))
                 }
             case .failure(let error):
+                self.likeTask = nil
                 print("ERROR: \(error)")
                 completion(.failure(error))
             }
         }
+        likeTask = task
         task.resume()
     }
 }
 
+//MARK: - delete photo from photos
+extension ImagesListService {
+    func deletePhotos() {
+        photos = []
+    }
+}

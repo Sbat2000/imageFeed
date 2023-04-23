@@ -17,10 +17,7 @@ final class ImagesListViewController: UIViewController {
     private let imageListService = ImagesListService.shared
     private var photos: [Photo] = []
     private var imagesListServiceServiceObserver: NSObjectProtocol?
-    
-    deinit {
-        print("IMLVC DEINIT!")
-    }
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -73,7 +70,6 @@ final class ImagesListViewController: UIViewController {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print("indexPath.row")
         if indexPath.row + 1 == photos.count {
             self.imageListService.fetchPhotosNextPage()
         }
@@ -90,12 +86,6 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //        guard let image = UIImage(named: photosName[indexPath.row]) else { return 0 }
-        //        let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-        //        let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        //        let imageWidth = image.size.width
-        //        let scale = imageViewWidth / imageWidth
-        //        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         
         let imageSize = photos[indexPath.row].size
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
@@ -105,9 +95,7 @@ extension ImagesListViewController: UITableViewDelegate {
         let cellHeight = imageSize.height * scale + imageInsets.top + imageInsets.bottom
         
         return cellHeight
-    }
-    
-    
+    }  
 }
 
 //MARK: - UITableViewDataSource
@@ -144,9 +132,6 @@ extension ImagesListViewController {
     private func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = imageListService.photos.count
-        print("OLD: \(oldCount)")
-        print("NEW: \(newCount)")
-        print("STROK: \(tableView.numberOfRows(inSection: 0))")
         photos = imageListService.photos
         if oldCount != newCount {
             tableView.performBatchUpdates {
@@ -168,7 +153,6 @@ extension ImagesListViewController: ImagesListCellDelegate {
         imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
             switch result {
             case .success():
-                print("OK")
                 self.photos = self.imageListService.photos
                 cell.setIsLiked(self.photos[indexPath.row].isLiked)
                 UIBlockingProgressHUD.dismiss()

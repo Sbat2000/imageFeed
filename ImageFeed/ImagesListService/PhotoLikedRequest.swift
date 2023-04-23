@@ -8,9 +8,7 @@
 import Foundation
 
 struct PhotosLikedRequest: Codable {
-
     let photo: PhotoLiked
-    
 }
 
 extension PhotosLikedRequest {

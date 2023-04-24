@@ -78,7 +78,7 @@ extension SingleImageViewController {
                 self.imageView.image = imageResult.image
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure:
-                showError()
+                self.showError()
             }
         }
     }

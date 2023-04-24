@@ -53,7 +53,7 @@ final class ImagesListService {
                     object: self,
                     userInfo: ["Photos": self.photos])
                 self.task = nil
-                lastLoadedPage = nextPage
+                self.lastLoadedPage = nextPage
             case .failure(let error):
                 print("ERROR: \(error)")
                 self.task = nil

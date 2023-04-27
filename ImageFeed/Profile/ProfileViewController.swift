@@ -7,9 +7,10 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
-
+    
     let profileService = ProfileService.shared
     let authToken = OAuth2TokenStorage().token ?? "nil"
     private var profileImageServiceObserver: NSObjectProtocol?
@@ -60,7 +61,7 @@ final class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -71,10 +72,10 @@ final class ProfileViewController: UIViewController {
             forName: ProfileImageService.DidChangeNotification,
             object: nil,
             queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
         updateAvatar()
     }
     
@@ -89,7 +90,7 @@ final class ProfileViewController: UIViewController {
             avatarImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             avatarImage.heightAnchor.constraint(equalToConstant: 70),
             avatarImage.widthAnchor.constraint(equalToConstant: 70),
-
+            
             logoutButton.centerYAnchor.constraint(equalTo: avatarImage.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
             
@@ -105,7 +106,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func didTapLogoutButton() {
-        OAuth2TokenStorage().deleteToken()
+        showLogoutAlert()
     }
     
     func setupProfile() -> Void {
@@ -128,4 +129,46 @@ final class ProfileViewController: UIViewController {
                                 options: [])
     }
 }
+
+//MARK: - delete Cookies
+extension ProfileViewController {
+    private func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) {}
+            }
+        }
+        ImagesListService.shared.deletePhotos()
+    }
+}
+
+
+//MARK: - show logout alert
+
+extension ProfileViewController {
+    private func showLogoutAlert() {
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+            OAuth2TokenStorage().deleteToken()
+            self.clean()
+            alert.dismiss(animated: true)
+            let splashVC = SplashViewController()
+            splashVC.isFirstAppear = true
+            if let window = UIApplication.shared.windows.first {
+                window.rootViewController = splashVC
+                window.makeKeyAndVisible()
+            }
+        }
+        let noAction = UIAlertAction(title: "Нет",
+                                     style: .default) {_ in
+            alert.dismiss(animated: true)
+            
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true)
+    }
+}
+
 

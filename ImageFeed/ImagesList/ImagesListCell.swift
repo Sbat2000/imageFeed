@@ -1,8 +1,9 @@
 import UIKit
-
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
+    weak var delegate: ImagesListCellDelegate?
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellLikeButton: UIButton!
     @IBOutlet weak var cellDateLabel: UILabel!
@@ -17,6 +18,7 @@ final class ImagesListCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         gradientView.layer.sublayers = nil
+        cellImage.kf.cancelDownloadTask()
     }
 
     func setupGradient() {
@@ -32,4 +34,24 @@ final class ImagesListCell: UITableViewCell {
         gradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
 
+}
+
+//MARK: - likeButtonClicked
+extension ImagesListCell {
+    @IBAction private func likeButtonClicked() {
+        delegate?.imageListCellDidTapLike(self)
+    }
+}
+
+//MARK: - setIsLiked
+extension ImagesListCell {
+    func setIsLiked(_ likedByUser: Bool) {
+        let likeImage = likedByUser ? UIImage(named: "ActiveLikeImage") : UIImage(named: "NoActiveLikeImage")
+        if likedByUser {
+            cellLikeButton.setImage(likeImage, for: .normal)
+        } else if likedByUser == false  {
+            cellLikeButton.setImage(likeImage, for: .normal)
+            
+        }
+    }
 }

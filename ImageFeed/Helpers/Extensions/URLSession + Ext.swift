@@ -11,6 +11,7 @@ enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+    case decode(Error)
 }
 
 extension URLSession {
@@ -31,10 +32,12 @@ extension URLSession {
                     if 200..<300 ~= statusCode {
                         do {
                             let decoder = JSONDecoder()
+                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                            decoder.dateDecodingStrategy = .iso8601
                             let result = try decoder.decode(T.self, from: data)
                             fulfillCompletionOnMainThread(.success(result))
                         } catch {
-                            fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+                            fulfillCompletionOnMainThread(.failure(NetworkError.decode(error)))
                         }
                     } else {
                         fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))

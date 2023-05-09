@@ -9,11 +9,12 @@ import UIKit
 import Kingfisher
 import WebKit
 
-final class ProfileViewController: UIViewController {
-    
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+ 
     let profileService = ProfileService.shared
     let authToken = OAuth2TokenStorage().token ?? "nil"
     private var profileImageServiceObserver: NSObjectProtocol?
+     var presenter: ProfilePresenterProtocol?
     
     private lazy var avatarImage: UIImageView = {
         let image = UIImageView()
@@ -63,6 +64,8 @@ final class ProfileViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        presenter = ProfilePresenter()
+        presenter?.delegate = self
         super.viewDidLoad()
         setupUI()
         layout()
@@ -105,8 +108,8 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    @objc private func didTapLogoutButton() {
-        showLogoutAlert()
+    @objc internal func didTapLogoutButton() {
+        presenter?.showLogoutAlert()
     }
     
     func setupProfile() -> Void {
@@ -128,45 +131,11 @@ final class ProfileViewController: UIViewController {
                                 placeholder: Resources.Images.Profile.defaultAvatar,
                                 options: [])
     }
+    
 }
 
-//MARK: - delete Cookies
-extension ProfileViewController {
-    private func clean() {
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) {}
-            }
-        }
-        ImagesListService.shared.deletePhotos()
-    }
-}
-
-
-//MARK: - show logout alert
-
-extension ProfileViewController {
-    private func showLogoutAlert() {
-        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
-            OAuth2TokenStorage().deleteToken()
-            self.clean()
-            alert.dismiss(animated: true)
-            let splashVC = SplashViewController()
-            splashVC.isFirstAppear = true
-            if let window = UIApplication.shared.windows.first {
-                window.rootViewController = splashVC
-                window.makeKeyAndVisible()
-            }
-        }
-        let noAction = UIAlertAction(title: "Нет",
-                                     style: .default) {_ in
-            alert.dismiss(animated: true)
-            
-        }
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
+extension ProfileViewController: ProfilePresenterDelegate {
+    func presentAlert(alert: UIAlertController) {
         present(alert, animated: true)
     }
 }

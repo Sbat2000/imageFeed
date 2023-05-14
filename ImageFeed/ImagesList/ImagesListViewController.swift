@@ -12,10 +12,8 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
   
     @IBOutlet private weak var tableView: UITableView!
     
-    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
     private let imageListService = ImagesListService.shared
-    private var photos: [Photo] = []
     private var imagesListServiceServiceObserver: NSObjectProtocol?
     internal var presenter: ImagesListPresenterProtocol?
     

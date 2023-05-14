@@ -11,8 +11,8 @@ final class ImageFeedUITests: XCTestCase {
     
     private let app = XCUIApplication()
     
-    private let yourEmail = "zevzok@gmail.com"
-    private let yourPassword = "Otpusk2023"
+    private let yourEmail = "yourEmail"
+    private let yourPassword = "yourPassword"
     private let yourNameAndLastName = "Aleksandr Garipov"
     private let yourUserName = "@alepov"
 

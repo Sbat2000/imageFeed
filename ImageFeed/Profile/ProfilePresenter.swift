@@ -14,6 +14,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func showLogoutAlert() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
+        alert.view.accessibilityIdentifier = "logoutAlert"
         let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
             OAuth2TokenStorage().deleteToken()
             self.clean()
@@ -25,6 +26,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
                 window.makeKeyAndVisible()
             }
         }
+        yesAction.accessibilityIdentifier = "Yes"
         let noAction = UIAlertAction(title: "Нет",
                                      style: .default) {_ in
             alert.dismiss(animated: true)

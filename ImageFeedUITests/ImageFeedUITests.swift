@@ -11,19 +11,19 @@ final class ImageFeedUITests: XCTestCase {
     
     private let app = XCUIApplication()
     
-    private let yourEmail = "yourEmail"
-    private let yourPassword = "yourPassword"
-    private let yourNameAndLastName = "Aleksandr Garipov"
-    private let yourUserName = "@alepov"
-
+    private let yourEmail = "your email"
+    private let yourPassword = "your password"
+    private let fullName = "your firstName + lastName"
+    private let yourUserName = "your @username"
+    
     override func setUpWithError() throws {
-
+        
         continueAfterFailure = false
         
         app.launch()
-
+        
     }
-
+    
     func testAuth() throws {
         
         app.buttons["Authenticate"].tap()
@@ -32,20 +32,23 @@ final class ImageFeedUITests: XCTestCase {
         
         XCTAssertTrue(webView.waitForExistence(timeout: 5))
         
+        let passwordTextFiled = webView.descendants(matching: .secureTextField).element
+        XCTAssertTrue(passwordTextFiled.waitForExistence(timeout: 5))
+        
+        passwordTextFiled.tap()
+        sleep(3)
+        passwordTextFiled.typeText(yourPassword)
+        webView.swipeUp()
+        
+        
         let loginTextFiled = webView.descendants(matching: .textField).element
         XCTAssertTrue(loginTextFiled.waitForExistence(timeout: 5))
         
         loginTextFiled.tap()
+        sleep(3)
         loginTextFiled.typeText(yourEmail)
         webView.swipeUp()
         XCTAssertTrue(webView.waitForExistence(timeout: 5))
-        
-        let passwordTextFiled = webView.descendants(matching: .secureTextField).element
-        XCTAssertTrue(passwordTextFiled.waitForExistence(timeout: 5))
-
-        passwordTextFiled.tap()
-        passwordTextFiled.typeText(yourPassword)
-        webView.swipeUp()
         
         let loginButton = webView.descendants(matching: .button).element
         XCTAssertTrue(loginButton.waitForExistence(timeout: 5))
@@ -86,14 +89,14 @@ final class ImageFeedUITests: XCTestCase {
         
         let navBackButton = app.buttons["backButton"]
         navBackButton.tap()
-
+        
     }
     
     func testProfile() throws {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
         
-        XCTAssertTrue(app.staticTexts[yourNameAndLastName].exists)
+        XCTAssertTrue(app.staticTexts[fullName].exists)
         XCTAssertTrue(app.staticTexts[yourUserName].exists)
         
         app.buttons["logoutButton"].tap()

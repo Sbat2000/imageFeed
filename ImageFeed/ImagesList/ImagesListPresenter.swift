@@ -11,7 +11,7 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
     
     internal let imageListService = ImagesListService.shared
     internal var photos: [Photo] = []
-    internal var delegate: ImagesListPresenterDelegate?
+    internal weak var delegate: ImagesListPresenterDelegate?
     
     func updateTableViewAnimated() {
         let oldCount = photos.count
@@ -28,7 +28,8 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
     func imageListCellDidTapLike(indexPath: IndexPath) {
         let photo = photos[indexPath.row]
         delegate?.blockUI()
-        imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+        imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) {[weak self] result in
+            guard let self else { return }
             switch result {
             case .success():
                 self.photos = self.imageListService.photos

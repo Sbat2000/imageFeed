@@ -115,10 +115,13 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     
     func setupProfile() -> Void {
         if let firstNameText = profileService.profile?.firstName,
-           let lastNameText = profileService.profile?.lastName,
            let loginLabelText = profileService.profile?.username {
-            nameLabel.text = ("\(firstNameText) \(lastNameText)")
             loginLabel.text = ("@\(loginLabelText)")
+            if let lastNameText = profileService.profile?.lastName {
+                nameLabel.text = ("\(firstNameText) \(lastNameText)")
+            } else {
+                nameLabel.text = ("\(firstNameText)")
+            }
         }
         descriptionLabel.text = "\(profileService.profile?.bio ?? "")"
     }

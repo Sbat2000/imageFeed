@@ -5,7 +5,7 @@
 //  Created by Aleksandr Garipov on 09.05.2023.
 //
 
-import UIKit
+import Foundation
 import WebKit
 
 final class ProfilePresenter: ProfilePresenterProtocol {
@@ -15,8 +15,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     func showLogoutAlert() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
         alert.view.accessibilityIdentifier = "logoutAlert"
-        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+        let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
             OAuth2TokenStorage().deleteToken()
+            guard let self else { return }
             self.clean()
             alert.dismiss(animated: true)
             let splashVC = SplashViewController()

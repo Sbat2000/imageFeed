@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ImagesListPresenterDelegate {
+protocol ImagesListPresenterDelegate: AnyObject {
     func updateTableViewAnimated(indexPaths: [IndexPath])
     func blockUI()
     func unblockUI()

@@ -7,6 +7,9 @@
 
 import UIKit
 
-protocol ProfilePresenterDelegate {
-    func presentAlert(alert: UIAlertController)
+protocol ProfilePresenterDelegate: AnyObject {
+    func presentAlert(alert: Alert)
+    func showSplashVC()
+    func updateAvatar(url: URL)
+    func setupProfile(profile: Profile)
 }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol ProfilePresenterProtocol {
-    var delegate: ProfilePresenterDelegate? { get set }
-    func showLogoutAlert()
-    func clean()
+protocol ProfilePresenterProtocol: AnyObject {
+    func logoutButtonPressed()
 }

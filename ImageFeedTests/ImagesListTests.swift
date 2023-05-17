@@ -20,6 +20,10 @@ final class ImageListTests: XCTestCase {
                       isLiked: true)
     
     final class ImageListPresenterSpy: ImagesListPresenterProtocol {
+        func fetchPhotosNextPage() {
+            
+        }
+        
         
         var delegate: ImagesListPresenterDelegate?
         

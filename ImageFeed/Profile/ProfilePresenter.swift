@@ -10,35 +10,35 @@ import WebKit
 
 final class ProfilePresenter: ProfilePresenterProtocol {
     
-    var delegate: ProfilePresenterDelegate?
+    private weak var delegate: ProfilePresenterDelegate?
+    private var profileImageServiceObserver: NSObjectProtocol?
+    private let profileService = ProfileService.shared
+    private let authToken = OAuth2TokenStorage().token ?? "nil"
     
-    func showLogoutAlert() {
-        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены, что хотите выйти?", preferredStyle: .alert)
-        alert.view.accessibilityIdentifier = "logoutAlert"
-        let yesAction = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-            OAuth2TokenStorage().deleteToken()
-            guard let self else { return }
-            self.clean()
-            alert.dismiss(animated: true)
-            let splashVC = SplashViewController()
-            splashVC.isFirstAppear = true
-            if let window = UIApplication.shared.windows.first {
-                window.rootViewController = splashVC
-                window.makeKeyAndVisible()
-            }
-        }
-        yesAction.accessibilityIdentifier = "Yes"
-        let noAction = UIAlertAction(title: "Нет",
-                                     style: .default) {_ in
-            alert.dismiss(animated: true)
-            
-        }
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
+    init(delegate: ProfilePresenterDelegate) {
+        self.delegate = delegate
+        setupObserver()
+        setupProfile()
+        setupAvatar()
+    }
+    
+    func logoutButtonPressed() {
+        let alert = Alert(id: "logoutAlert", title: "Пока, пока!",
+                          message: "Уверены, что хотите выйти?",
+                          buttons: [
+                            .default(text: "Да", id: "Yes", action: { [weak self] in
+                                guard let self else { return }
+                                OAuth2TokenStorage().deleteToken()
+                                self.clean()
+                                delegate?.showSplashVC()
+                                
+        }),
+                            .cancel(text: "Нет", action: nil)
+                          ])
         delegate?.presentAlert(alert: alert)
     }
     
-    func clean() {
+    private func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
             records.forEach { record in
@@ -46,6 +46,30 @@ final class ProfilePresenter: ProfilePresenterProtocol {
             }
         }
         ImagesListService.shared.deletePhotos()
+    }
+    
+    private func setupObserver() {
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.setupAvatar()
+        }
+    }
+    
+    private func setupProfile() {
+        guard let profile = profileService.profile else { return }
+        delegate?.setupProfile(profile: profile)
+    }
+    
+    private func setupAvatar() {
+        guard
+            let profileImageUrl = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageUrl)
+        else { return }
+        delegate?.updateAvatar(url: url)
     }
 }
 

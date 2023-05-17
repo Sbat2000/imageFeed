@@ -20,6 +20,7 @@
 		E27FB58A29E427AB0011FC55 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FB58929E427AB0011FC55 /* TabBarController.swift */; };
 		E27FCA1F29A3A04E0001C526 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */; };
 		E27FCA2029A3A04E0001C526 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */; };
+		E288D4572A14D89500C4955F /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E288D4562A14D89500C4955F /* AlertModel.swift */; };
 		E2938F9229BDA60400E05696 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2938F9129BDA60400E05696 /* Resources.swift */; };
 		E2938F9529BDA75D00E05696 /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2938F9429BDA75D00E05696 /* UIColor + ext.swift */; };
 		E29B08FE299FC8000099212A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29B08FD299FC8000099212A /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 		E27FB58929E427AB0011FC55 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E27FCA1D29A3A04E0001C526 /* ImagesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		E27FCA1E29A3A04E0001C526 /* ImagesListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		E288D4562A14D89500C4955F /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		E2938F9129BDA60400E05696 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		E2938F9429BDA75D00E05696 /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
 		E29B08FA299FC8000099212A /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,9 +211,18 @@
 			path = ImagesList;
 			sourceTree = "<group>";
 		};
+		E288D4552A14D88100C4955F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E288D4562A14D89500C4955F /* AlertModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E2899B9629B498570064C26B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				E288D4552A14D88100C4955F /* Model */,
 				E27FB57E29E164490011FC55 /* ProfileImageService */,
 				E27FB57929E0331D0011FC55 /* ProfileService */,
 				E259A06529B22F0F00F4C649 /* ProfileViewController.swift */,
@@ -542,6 +553,7 @@
 				E2938F9529BDA75D00E05696 /* UIColor + ext.swift in Sources */,
 				E2DBF71229C4B5D900E3CCAA /* AuthConfiguration.swift in Sources */,
 				E27FB57B29E033290011FC55 /* ProfileService.swift in Sources */,
+				E288D4572A14D89500C4955F /* AlertModel.swift in Sources */,
 				E2A3468429EAF01300580B65 /* ImagesListService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,8 +13,6 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
     @IBOutlet private weak var tableView: UITableView!
     
     private let ShowSingleImageSegueIdentifier = "ShowSingleImage"
-    private let imageListService = ImagesListService.shared
-    private var imagesListServiceServiceObserver: NSObjectProtocol?
     internal var presenter: ImagesListPresenterProtocol?
     
     private lazy var dateFormatter: DateFormatter = {
@@ -33,21 +31,11 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
-        imagesListServiceServiceObserver = NotificationCenter.default.addObserver(
-            forName: ImagesListService.DidChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            presenter?.updateTableViewAnimated()
-        }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        imageListService.fetchPhotosNextPage()
+        presenter?.fetchPhotosNextPage()
         presenter?.updateTableViewAnimated()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

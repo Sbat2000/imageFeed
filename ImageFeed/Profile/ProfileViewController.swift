@@ -10,11 +10,8 @@ import Kingfisher
 import WebKit
 
 final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
- 
-    let profileService = ProfileService.shared
-    let authToken = OAuth2TokenStorage().token ?? "nil"
-    private var profileImageServiceObserver: NSObjectProtocol?
-     var presenter: ProfilePresenterProtocol?
+
+    var presenter: ProfilePresenterProtocol?
     
     private lazy var avatarImage: UIImageView = {
         let image = UIImageView()
@@ -65,22 +62,11 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }()
     
     override func viewDidLoad() {
-        presenter = ProfilePresenter()
-        presenter?.delegate = self
+        let profilePresenter = ProfilePresenter(delegate: self)
+        self.presenter = profilePresenter
         super.viewDidLoad()
         setupUI()
         layout()
-        setupProfile()
-        
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.DidChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateAvatar()
-        }
-        updateAvatar()
     }
     
     func setupUI() {
@@ -110,37 +96,61 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
     }
     
     @objc internal func didTapLogoutButton() {
-        presenter?.showLogoutAlert()
-    }
-    
-    func setupProfile() -> Void {
-        if let firstNameText = profileService.profile?.firstName,
-           let loginLabelText = profileService.profile?.username {
-            loginLabel.text = ("@\(loginLabelText)")
-            if let lastNameText = profileService.profile?.lastName {
-                nameLabel.text = ("\(firstNameText) \(lastNameText)")
-            } else {
-                nameLabel.text = ("\(firstNameText)")
-            }
-        }
-        descriptionLabel.text = "\(profileService.profile?.bio ?? "")"
-    }
-    
-    private func updateAvatar() {
-        guard
-            let profileImageUrl = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageUrl)
-        else { return }
-        avatarImage.kf.setImage(with: url,
-                                placeholder: Resources.Images.Profile.defaultAvatar,
-                                options: [])
+        presenter?.logoutButtonPressed()
     }
     
 }
 
 extension ProfileViewController: ProfilePresenterDelegate {
-    func presentAlert(alert: UIAlertController) {
-        present(alert, animated: true)
+    
+    func showSplashVC() {
+        let splashVC = SplashViewController()
+        splashVC.isFirstAppear = true
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = splashVC
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func presentAlert(alert: Alert) {
+        let alertController = UIAlertController(title: alert.title,
+                                                message: alert.message,
+                                                preferredStyle: .alert)
+        alertController.view.accessibilityIdentifier = alert.id
+        
+        alert.buttons.forEach{
+            switch $0 {
+            case .cancel(let text, let id, let action):
+                let action = UIAlertAction(title: text, style: .cancel, handler: { _ in
+                    action?()
+                })
+                action.accessibilityIdentifier = id
+                alertController.addAction(action)
+            case .default(let text, let id, let action):
+                let action = UIAlertAction(title: text, style: .default, handler: { _ in
+                    action?()
+                })
+                action.accessibilityIdentifier = id
+                alertController.addAction(action)
+            }
+        }
+        present(alertController, animated: true)
+    }
+    
+    func updateAvatar(url: URL) {
+        avatarImage.kf.setImage(with: url,
+                                placeholder: Resources.Images.Profile.defaultAvatar,
+                                options: [])
+    }
+    
+    func setupProfile(profile: Profile) -> Void {
+        loginLabel.text = "@\(profile.username)"
+        if let lastName = profile.lastName {
+            nameLabel.text = "\(profile.firstName) \(lastName)"
+        } else {
+            nameLabel.text = profile.firstName
+        }
+        descriptionLabel.text = "\(profile.bio ?? "")"
     }
 }
 

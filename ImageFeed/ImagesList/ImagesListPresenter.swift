@@ -8,10 +8,22 @@
 import Foundation
 
 final class ImagesListPresenter: ImagesListPresenterProtocol {
-    
+  
     internal let imageListService = ImagesListService.shared
     internal var photos: [Photo] = []
     internal weak var delegate: ImagesListPresenterDelegate?
+    private var imagesListServiceServiceObserver: NSObjectProtocol?
+    
+    
+    init() {
+        setupObserver()
+    }
+    
+    func fetchPhotosNextPage() {
+        imageListService.fetchPhotosNextPage()
+    }
+    
+    
     
     func updateTableViewAnimated() {
         let oldCount = photos.count
@@ -22,6 +34,18 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
                 IndexPath(row: i, section: 0)
             }
             delegate?.updateTableViewAnimated(indexPaths: indexPaths)
+        }
+    }
+    
+    private func setupObserver() {
+        
+        imagesListServiceServiceObserver = NotificationCenter.default.addObserver(
+            forName: ImagesListService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateTableViewAnimated()
         }
     }
     

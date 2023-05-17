@@ -10,11 +10,13 @@ import XCTest
 
 final class ProfileTests: XCTestCase {
     final class ProfilePresenterSpy: ProfilePresenterProtocol {
+ 
+        
         var delegate: ProfilePresenterDelegate?
         
         var showLogoutAlertCalled: Bool = false
         var cleanCalled: Bool = false
-        func showLogoutAlert() {
+        func logoutButtonPressed() {
             showLogoutAlertCalled = true
             clean()
         }
@@ -28,7 +30,7 @@ final class ProfileTests: XCTestCase {
         var presenter: ProfilePresenterProtocol?
         
         func didTapLogoutButton() {
-            presenter?.showLogoutAlert()
+            presenter?.logoutButtonPressed()
         }
     }
     

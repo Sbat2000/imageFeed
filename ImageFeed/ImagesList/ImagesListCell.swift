@@ -51,7 +51,6 @@ extension ImagesListCell {
             cellLikeButton.setImage(likeImage, for: .normal)
         } else if likedByUser == false  {
             cellLikeButton.setImage(likeImage, for: .normal)
-            
         }
     }
 }
